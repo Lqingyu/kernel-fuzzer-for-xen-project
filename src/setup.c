@@ -29,11 +29,11 @@ static event_response_t start_cpuid_cb(vmi_instance_t vmi, vmi_event_t *event)
 {
     rip = event->x86_regs->rip + event->cpuid_event.insn_length;
 
-    if ( event->cpuid_event.leaf == magic_cpuid )
-    {
-        printf("Got start cpuid callback with leaf: 0x%x subleaf: 0x%x\n",
+    printf("Got start cpuid callback with leaf: 0x%x subleaf: 0x%x\n",
                event->cpuid_event.leaf, event->cpuid_event.subleaf);
 
+    if ( event->cpuid_event.leaf == magic_cpuid )
+    {
         if ( extended_cpuid )
             buf_size = event->cpuid_event.subleaf;
         else
